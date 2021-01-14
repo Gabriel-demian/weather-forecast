@@ -7,5 +7,4 @@ public enum WeatherEnum {
 	OPTIMAL, 
 	NONE
 	
-	
 }
