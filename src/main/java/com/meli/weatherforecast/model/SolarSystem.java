@@ -7,6 +7,10 @@ import lombok.Data;
 @Data
 public class SolarSystem {
 	
+	/**
+	 * The solar system only have 3 planets. And The sun will be at the origin (0,0)
+	 */
+	
 	public static final Point2D.Double SUN = new Point2D.Double(0.0, 0.0);
 
     private Planet planet1;

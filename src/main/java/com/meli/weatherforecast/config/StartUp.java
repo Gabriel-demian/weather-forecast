@@ -11,8 +11,13 @@ public class StartUp {
 	
 	private WheatherForecastService service;
 	
-	private Integer days;
+	//Ver forma de ingresar por param. 
+	private Integer days = 365;
 	
+	/**
+	 * Javax's @PostConstruct annotation can be used for annotating a method that should be run once immediately after the bean's initialization. 
+	 * Keep in mind that the annotated method will be executed by Spring even if there is nothing to inject.
+	 */
 	@PostConstruct
     public void init() {
 		//service.calulateAndPersistForecastForDays(days);
