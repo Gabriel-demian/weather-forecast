@@ -34,12 +34,12 @@ public class Forecast {
 	@Column
     private Double perimeter;
 
-	public Forecast(Integer day, WeatherEnum weather) {
+	public Forecast(int day, WeatherEnum weather) {
 		this.day = day;
 		this.weather = weather;
 	}
 	
-	public Forecast(Integer day, WeatherEnum weather, Double perimeter) {
+	public Forecast(int day, WeatherEnum weather, Double perimeter) {
 		this.day = day;
 		this.weather = weather;
 		this.perimeter = perimeter;

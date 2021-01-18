@@ -2,8 +2,16 @@ package com.meli.weatherforecast;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
+
+@Configuration
+@EnableSwagger2
+@ComponentScan("com.meli")
 public class WeatherForecastApplication {
 
 	public static void main(String[] args) {
