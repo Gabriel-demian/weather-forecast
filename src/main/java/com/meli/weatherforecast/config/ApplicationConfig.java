@@ -2,12 +2,17 @@ package com.meli.weatherforecast.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import com.meli.weatherforecast.model.Planet;
 import com.meli.weatherforecast.model.SolarSystem;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @Configuration
+@EnableSwagger2
+@ComponentScan("com.meli")
 public class ApplicationConfig {
 	
 	@Qualifier(value = "allSolarSystem")

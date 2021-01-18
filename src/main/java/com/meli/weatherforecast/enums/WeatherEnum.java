@@ -4,7 +4,8 @@ public enum WeatherEnum {
 	
 	DROUGHT, 
 	RAIN, 
-	OPTIMAL, 
+	OPTIMAL,
+	HEAVY_RAIN,
 	NONE
 	
 }

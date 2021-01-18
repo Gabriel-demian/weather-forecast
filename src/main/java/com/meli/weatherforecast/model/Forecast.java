@@ -24,7 +24,7 @@ public class Forecast {
 	@JsonIgnore
 	private Long id;
 	
-	@Column
+	@Column(unique = true)
 	private Integer day;
 	
 	@Column

@@ -1,6 +1,10 @@
 package com.meli.weatherforecast.service.impl;
 
+import static com.meli.weatherforecast.model.SolarSystem.SUN;
+
 import java.awt.geom.Point2D;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Service
 @RequiredArgsConstructor
+
 public class WheatherForecastService {
 
 	@Autowired
@@ -25,6 +30,7 @@ public class WheatherForecastService {
 
 	private final SolarSystem solarSystem;
 
+	@Transactional
 	public void runForecast(int totalDays) {
 
 		log.info("Starting to calculate and persist the forecast for the next " + totalDays + " days.");
@@ -40,7 +46,17 @@ public class WheatherForecastService {
 			forecastRepository.save(actualForecast);
 
 		}
+		
+		updateMaxPerimToHeavyRain();
 
+	}
+
+	private void updateMaxPerimToHeavyRain() {
+		Double top = forecastRepository.findTopPerimeterFromForecast();
+		
+		forecastRepository.updateWeatherToHeavyRain(top);
+		
+		log.info("===> TOP PERIMETER: " + top);
 	}
 
 	public Forecast getForecastByDay(int day) {
@@ -72,9 +88,9 @@ public class WheatherForecastService {
 
 		Double planetsArea = Calculator.areaByHeron(positionPlanet1, positionPlanet2, positionPlanet3);
 
-		double areaWithTheSun1 = Calculator.areaByHeron(SolarSystem.SUN, positionPlanet2, positionPlanet3);
-		double areaWithTheSun2 = Calculator.areaByHeron(positionPlanet1, SolarSystem.SUN, positionPlanet3);
-		double areaWithTheSun3 = Calculator.areaByHeron(positionPlanet1, positionPlanet2, SolarSystem.SUN);
+		double areaWithTheSun1 = Calculator.areaByHeron(SUN, positionPlanet2, positionPlanet3);
+		double areaWithTheSun2 = Calculator.areaByHeron(positionPlanet1, SUN, positionPlanet3);
+		double areaWithTheSun3 = Calculator.areaByHeron(positionPlanet1, positionPlanet2, SUN);
 
 		Double sumAreasWithTheSun = areaWithTheSun1 + areaWithTheSun2 + areaWithTheSun3;
 
@@ -104,7 +120,7 @@ public class WheatherForecastService {
 	public boolean sunIsAligned(int day) {
 
 		Double triangleArea = Calculator.areaByHeron(solarSystem.getPlanet1Position(day),
-				solarSystem.getPlanet2Position(day), solarSystem.SUN);
+				solarSystem.getPlanet2Position(day), SUN);
 
 		return Calculator.doubleEquals(triangleArea, 0);
 	}
@@ -112,7 +128,7 @@ public class WheatherForecastService {
 
 	public boolean sunIsAlignedWithPlanets(int day) {
 		
-		Double triangleArea = Calculator.areaByHeron(SolarSystem.SUN, solarSystem.getPlanet2Position(day),
+		Double triangleArea = Calculator.areaByHeron(SUN, solarSystem.getPlanet2Position(day),
 				solarSystem.getPlanet3Position(day));
 
 		return Calculator.doubleEquals(triangleArea, 0);
