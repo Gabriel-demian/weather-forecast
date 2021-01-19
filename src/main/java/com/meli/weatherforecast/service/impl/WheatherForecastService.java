@@ -34,7 +34,7 @@ public class WheatherForecastService {
 	public void runForecast(int totalDays) {
 
 		log.info("Starting to calculate and persist the forecast for the next " + totalDays + " days.");
-
+		
 		for (int currentDay = 0; currentDay < totalDays; currentDay++) {
 			
 			log.info("Calculating forecast for the day " + currentDay);
@@ -47,8 +47,24 @@ public class WheatherForecastService {
 
 		}
 		
+		Forecast fore = new Forecast(1, WeatherEnum.OPTIMAL, 123.00);
+		Integer y = 12;
+		
+		log.info("fore 1: " + fore.getPerimeter());
+		log.info("y 1: " + y);
+		change(fore, y);
+		
+		log.info("fore 3: " + fore.getPerimeter());
+		log.info("y 3: " + y);
 		updateMaxPerimToHeavyRain();
 
+	}
+	
+	private void change(Forecast fore, Integer y) {
+		fore.setPerimeter(150.00);
+		y = 125;
+		log.info("fore 2: " + fore.getPerimeter());
+		log.info("y 2: " + y);
 	}
 
 	private void updateMaxPerimToHeavyRain() {
@@ -57,6 +73,7 @@ public class WheatherForecastService {
 		forecastRepository.updateWeatherToHeavyRain(top);
 		
 		log.info("===> TOP PERIMETER: " + top);
+		
 	}
 
 	public Forecast getForecastByDay(int day) {
@@ -72,8 +89,8 @@ public class WheatherForecastService {
 		}else {
 			log.info("the planets are forming a triangle.");
 			
-			Double perimeter = Calculator.areaByHeron(solarSystem.getPlanet1Position(day), solarSystem.getPlanet2Position(day), solarSystem.getPlanet3Position(day));
-			
+//			Double perimeter = Calculator.areaByHeron(solarSystem.getPlanet1Position(day), solarSystem.getPlanet2Position(day), solarSystem.getPlanet3Position(day));
+			Double perimeter = Calculator.perimeter(solarSystem.getPlanet1Position(day), solarSystem.getPlanet2Position(day), solarSystem.getPlanet3Position(day));
 			weather = triangleContainsSun(day);
 			
 			return new Forecast(day, weather, perimeter);

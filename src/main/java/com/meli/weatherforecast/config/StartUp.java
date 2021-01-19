@@ -14,7 +14,7 @@ public class StartUp {
 	private WheatherForecastService service;
 	
 	//Ver forma de ingresar por param. 
-	private Integer days = 3650;
+	private Integer days = 365;
 	
 	/**
 	 * Javax's @PostConstruct annotation can be used for annotating a method that should be run once immediately after the bean's initialization. 
