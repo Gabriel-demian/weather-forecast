@@ -3,6 +3,7 @@ package com.meli.weatherforecast.service.impl;
 import static com.meli.weatherforecast.model.SolarSystem.SUN;
 
 import java.awt.geom.Point2D;
+import java.text.DecimalFormat;
 
 import javax.transaction.Transactional;
 
@@ -21,7 +22,6 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Service
 @RequiredArgsConstructor
-
 public class WheatherForecastService {
 
 	@Autowired
@@ -78,6 +78,7 @@ public class WheatherForecastService {
 
 	public Forecast getForecastByDay(int day) {
 		WeatherEnum weather;
+		DecimalFormat df2 = new DecimalFormat("#.####");
 		
 		if(planetsAligned(day)) {
 			log.info("The planets are aligned.");
@@ -87,11 +88,21 @@ public class WheatherForecastService {
 			return new Forecast(day, weather, 0.0);
 			
 		}else {
+			
+			
 			log.info("the planets are forming a triangle.");
+			
+			log.info("Día " + day + 
+					" , pos1: X:"+ df2.format(solarSystem.getPlanet1Position(day).getX()) + "  Y:" +df2.format(solarSystem.getPlanet1Position(day).getY()) + 
+					" , pos2: X:"+ df2.format(solarSystem.getPlanet2Position(day).getX()) + "  Y:" +df2.format(solarSystem.getPlanet2Position(day).getY()) + 
+					" , pos3: X:"+ df2.format(solarSystem.getPlanet3Position(day).getX()) + "  Y:" +df2.format(solarSystem.getPlanet3Position(day).getY()) );
+			
 			
 //			Double perimeter = Calculator.areaByHeron(solarSystem.getPlanet1Position(day), solarSystem.getPlanet2Position(day), solarSystem.getPlanet3Position(day));
 			Double perimeter = Calculator.perimeter(solarSystem.getPlanet1Position(day), solarSystem.getPlanet2Position(day), solarSystem.getPlanet3Position(day));
 			weather = triangleContainsSun(day);
+			
+			
 			
 			return new Forecast(day, weather, perimeter);
 		}
