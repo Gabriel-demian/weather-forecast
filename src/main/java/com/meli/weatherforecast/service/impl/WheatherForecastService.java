@@ -14,7 +14,7 @@ import com.meli.weatherforecast.enums.WeatherEnum;
 import com.meli.weatherforecast.geometry.Calculator;
 import com.meli.weatherforecast.model.Forecast;
 import com.meli.weatherforecast.model.SolarSystem;
-import com.meli.weatherforecast.repository.ForecastRepository;
+import com.meli.weatherforecast.service.ForecastService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,7 +25,7 @@ import lombok.extern.log4j.Log4j2;
 public class WheatherForecastService {
 
 	@Autowired
-	private ForecastRepository forecastRepository;
+	private ForecastService forecastService;
 	
 
 	private final SolarSystem solarSystem;
@@ -43,7 +43,7 @@ public class WheatherForecastService {
 			
 			log.info("The next forecast is going to be saved " + actualForecast.toString());
 			
-			forecastRepository.save(actualForecast);
+			forecastService.save(actualForecast);
 
 		}
 		
@@ -68,9 +68,9 @@ public class WheatherForecastService {
 	}
 
 	private void updateMaxPerimToHeavyRain() {
-		Double top = forecastRepository.findTopPerimeterFromForecast();
+		Double top = forecastService.findTopPerimeterFromForecast();
 		
-		forecastRepository.updateWeatherToHeavyRain(top);
+		forecastService.updateWeatherToHeavyRain(top);
 		
 		log.info("===> TOP PERIMETER: " + top);
 		
@@ -97,12 +97,9 @@ public class WheatherForecastService {
 					" , pos2: X:"+ df2.format(solarSystem.getPlanet2Position(day).getX()) + "  Y:" +df2.format(solarSystem.getPlanet2Position(day).getY()) + 
 					" , pos3: X:"+ df2.format(solarSystem.getPlanet3Position(day).getX()) + "  Y:" +df2.format(solarSystem.getPlanet3Position(day).getY()) );
 			
-			
-//			Double perimeter = Calculator.areaByHeron(solarSystem.getPlanet1Position(day), solarSystem.getPlanet2Position(day), solarSystem.getPlanet3Position(day));
 			Double perimeter = Calculator.perimeter(solarSystem.getPlanet1Position(day), solarSystem.getPlanet2Position(day), solarSystem.getPlanet3Position(day));
+			
 			weather = triangleContainsSun(day);
-			
-			
 			
 			return new Forecast(day, weather, perimeter);
 		}

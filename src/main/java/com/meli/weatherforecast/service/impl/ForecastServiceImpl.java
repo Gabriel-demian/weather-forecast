@@ -21,6 +21,13 @@ public class ForecastServiceImpl implements ForecastService {
 	
 	@Autowired
 	private ForecastRepository forecastRepository;
+	
+	@Override
+	public Forecast save(Forecast forecast) {
+		
+		return forecastRepository.save(forecast);
+		
+	}
 
 	@Override
 	public Forecast findByDay(int day) {

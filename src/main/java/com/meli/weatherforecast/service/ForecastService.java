@@ -7,6 +7,8 @@ import com.meli.weatherforecast.model.Forecast;
 
 public interface ForecastService {
 	
+	public Forecast save(Forecast forecast);
+	
 	public Forecast findByDay(int day);
 	
 	public List<Forecast> findAllByWeather(WeatherEnum weather);
