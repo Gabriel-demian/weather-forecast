@@ -44,6 +44,9 @@ public class Forecast {
 		this.weather = weather;
 		this.perimeter = perimeter;
 	}
+
+	public Forecast() {
+	}
 	
 	
 	

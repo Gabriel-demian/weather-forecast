@@ -5,16 +5,16 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.meli.weatherforecast.service.impl.WheatherForecastService;
+import com.meli.weatherforecast.service.impl.WeatherForecastService;
 
 @Component
 public class StartUp {
 	
 	@Autowired
-	private WheatherForecastService service;
+	private WeatherForecastService service;
 	
 	//Ver forma de ingresar por param. 
-	private Integer days = 2;
+	private Integer days = 365;
 	
 	/**
 	 * Javax's @PostConstruct annotation can be used for annotating a method that should be run once immediately after the bean's initialization. 

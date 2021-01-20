@@ -22,12 +22,11 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @Service
 @RequiredArgsConstructor
-public class WheatherForecastService {
+public class WeatherForecastService {
 
 	@Autowired
 	private ForecastService forecastService;
 	
-
 	private final SolarSystem solarSystem;
 
 	@Transactional
