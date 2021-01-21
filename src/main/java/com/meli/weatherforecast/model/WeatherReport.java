@@ -10,13 +10,14 @@ import lombok.Data;
 @Data
 public class WeatherReport {
 	
-	private Integer reinyDays;
+	private Integer maxPerimeterDay;
+	
 	
 	private Map<WeatherEnum, Integer> forecastsPeriods;
     
 	public WeatherReport() {
         this.forecastsPeriods = new EnumMap<>(WeatherEnum.class);
-        this.reinyDays = -1;
+        this.maxPerimeterDay = -1;
     }
 	
 	public void addForecast(WeatherEnum forecast) {

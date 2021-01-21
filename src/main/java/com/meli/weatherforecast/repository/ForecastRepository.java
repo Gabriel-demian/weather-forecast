@@ -16,7 +16,7 @@ public interface ForecastRepository extends JpaRepository<Forecast, Integer>{
 	
 	public final static String GET_MAX_PERIMETER = "SELECT MAX(perimeter) FROM Forecast ";
 	
-	public final static String UPDATE_WEATHER = "UPDATE Forecast SET weather = 'HEAVY RAIN' WHERE perimeter = :perimeter";
+	public final static String UPDATE_WEATHER = "UPDATE Forecast SET weather = 'HEAVY_RAIN' WHERE perimeter = :perimeter";
 	
 	Optional<Forecast> findByDay(Integer day);
 	

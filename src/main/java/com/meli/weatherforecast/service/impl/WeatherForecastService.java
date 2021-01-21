@@ -14,6 +14,7 @@ import com.meli.weatherforecast.enums.WeatherEnum;
 import com.meli.weatherforecast.geometry.Calculator;
 import com.meli.weatherforecast.model.Forecast;
 import com.meli.weatherforecast.model.SolarSystem;
+import com.meli.weatherforecast.model.WeatherReport;
 import com.meli.weatherforecast.service.ForecastService;
 
 import lombok.RequiredArgsConstructor;
@@ -55,6 +56,7 @@ public class WeatherForecastService {
 		
 		log.info("fore 3: " + fore.getPerimeter());
 		log.info("y 3: " + y);
+		
 		updateMaxPerimToHeavyRain();
 
 	}
@@ -102,6 +104,42 @@ public class WeatherForecastService {
 			
 			return new Forecast(day, weather, perimeter);
 		}
+	}
+	
+	public WeatherReport getForecastReport(int totalDays) {
+		WeatherReport report = new WeatherReport();
+		
+		Double maxPerimeter = 0D;
+		Integer maxPerimeterDay = null;
+		Forecast lastForecast = null;
+		
+		for(int thisDay = 0; thisDay < totalDays; thisDay++) {
+			Forecast currentForecast = forecastService.findByDay(thisDay);
+			
+			if(thisDay == 0) {
+				lastForecast = currentForecast;
+				report.addForecast(currentForecast.getWeather());
+			}
+			
+			if(!currentForecast.getWeather().equals(lastForecast.getWeather())) {
+				lastForecast = currentForecast;
+				report.addForecast(currentForecast.getWeather());
+			}
+			
+			if(WeatherEnum.HEAVY_RAIN.equals(currentForecast.getWeather())) {
+
+                if (currentForecast.getPerimeter() > maxPerimeter) {
+                    maxPerimeter = currentForecast.getPerimeter();
+                    maxPerimeterDay = thisDay;
+                }
+            }
+			
+			
+		}
+		
+		report.setMaxPerimeterDay(maxPerimeterDay);
+		
+		return report;
 	}
 
 	public boolean sunIsInsideTriangle(int day) {

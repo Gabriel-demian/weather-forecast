@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.ImmutableMap;
+import com.meli.weatherforecast.config.StartUp;
 import com.meli.weatherforecast.model.Forecast;
 import com.meli.weatherforecast.service.ForecastService;
 import com.meli.weatherforecast.service.impl.WeatherForecastService;
@@ -25,6 +26,8 @@ public class WeatherForecastController {
 	@Autowired
 	WeatherForecastService weatherForecastService;
 	
+	StartUp start = new StartUp();
+	
 	@SuppressWarnings("rawtypes")
 	@GetMapping(value= "/forecast")
 	public ResponseEntity weatherForecast(@RequestParam(value= "day") int day) {
@@ -39,6 +42,13 @@ public class WeatherForecastController {
 		
 		return ResponseEntity.ok().body(forecast);
 		
+	}
+	
+	@GetMapping(value="/forecast-report")
+	public ResponseEntity forecastReport() {
+		log.info("Starting to get the forecast report. days to report: " + start.getDays());
+		
+		return ResponseEntity.ok().body(weatherForecastService.getForecastReport(start.getDays()));
 	}
 	
 	
