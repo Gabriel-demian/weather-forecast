@@ -7,7 +7,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class Calculator {
 
-	public static Double perimeter(Point2D point1, Point2D point2, Point2D point3) {
+	public static Double trianglePerimeter(Point2D point1, Point2D point2, Point2D point3) {
 
 		Double distance1to2 = point1.distance(point2);
 		Double distance2to3 = point2.distance(point3);

@@ -98,7 +98,7 @@ public class WeatherForecastService {
 					" , pos2: X:"+ df2.format(solarSystem.getPlanet2Position(day).getX()) + "  Y:" +df2.format(solarSystem.getPlanet2Position(day).getY()) + 
 					" , pos3: X:"+ df2.format(solarSystem.getPlanet3Position(day).getX()) + "  Y:" +df2.format(solarSystem.getPlanet3Position(day).getY()) );
 			
-			Double perimeter = Calculator.perimeter(solarSystem.getPlanet1Position(day), solarSystem.getPlanet2Position(day), solarSystem.getPlanet3Position(day));
+			Double perimeter = Calculator.trianglePerimeter(solarSystem.getPlanet1Position(day), solarSystem.getPlanet2Position(day), solarSystem.getPlanet3Position(day));
 			
 			weather = triangleContainsSun(day);
 			
